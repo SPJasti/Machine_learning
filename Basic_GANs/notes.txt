@@ -1,4 +1,4 @@
-# torch.nn.modules.container.Sequential def __init__(self, *args: Any) -> None
+#$# torch.nn.modules.container.Sequential def __init__(self, *args: Any) -> None
 
 A sequential container. Modules will be added to it in the order they are passed in the constructor. Alternatively, an OrderedDict of modules can be passed in. The forward() method of Sequential accepts any input and forwards it to the first module it contains. It then "chains" outputs to inputs sequentially for each subsequent module, finally returning the output of the last module.
 The value a Sequential provides over manually calling a sequence of modules is that it allows treating the whole container as a single module, such that performing a transformation on the Sequential applies to each of the modules it stores (which are each a registered submodule of the Sequential).
@@ -25,3 +25,50 @@ model = nn.Sequential(OrderedDict([
           ('conv2', nn.Conv2d(20,64,5)),
           ('relu2', nn.ReLU())
         ]))
+______________________________________________________________________________________________________________________________
+#$# torch.nn.modules.linear.Linear def __init__(self,
+             in_features: int,
+             out_features: int,
+             bias: bool = True,
+             device: Any = None,
+             dtype: Any = None) -> None
+
+Applies a linear transformation to the incoming data: :math:`y = xA^T + b`
+
+    This module supports :ref:`TensorFloat32<tf32_on_ampere>`.
+
+    On certain ROCm devices, when using float16 inputs this module will use :ref:`different precision<fp16_on_mi200>` for backward.
+
+    Args:
+        in_features: size of each input sample
+        out_features: size of each output sample
+        bias: If set to ``False``, the layer will not learn an additive bias.
+            Default: ``True``
+
+    Shape:
+        - Input: :math:`(*, H_{in})` where :math:`*` means any number of
+          dimensions including none and :math:`H_{in} = \text{in\_features}`.
+        - Output: :math:`(*, H_{out})` where all but the last dimension
+          are the same shape as the input and :math:`H_{out} = \text{out\_features}`.
+
+    Attributes:
+        weight: the learnable weights of the module of shape
+            :math:`(\text{out\_features}, \text{in\_features})`. The values are
+            initialized from :math:`\mathcal{U}(-\sqrt{k}, \sqrt{k})`, where
+            :math:`k = \frac{1}{\text{in\_features}}`
+        bias:   the learnable bias of the module of shape :math:`(\text{out\_features})`.
+                If :attr:`bias` is ``True``, the values are initialized from
+                :math:`\mathcal{U}(-\sqrt{k}, \sqrt{k})` where
+                :math:`k = \frac{1}{\text{in\_features}}`
+
+    Examples::
+
+        >>> m = nn.Linear(20, 30)
+        >>> input = torch.randn(128, 20)
+        >>> output = m(input)
+        >>> print(output.size())
+        torch.Size([128, 30])
+
+useful links-> https://www.geeksforgeeks.org/linear-transformation-to-incoming-data-in-pytorch/
+______________________________________________________________________________________________________________________________
+
