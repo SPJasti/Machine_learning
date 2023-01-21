@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader
 import torchvision.transforms as transforms
 from torch.utils.tensorboard import SummaryWriter
 
+
 class Discriminator(nn.Module):
     def __init__(self, in_feature):
         super().__init__()
@@ -19,6 +20,7 @@ class Discriminator(nn.Module):
 
     def forward(self, x):
         return self.disc(x)
+
 
 class Generator(nn.Module):
     def __init__(self, z_dim, img_dim):
