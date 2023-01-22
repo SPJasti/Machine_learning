@@ -29,8 +29,20 @@ class Generator(nn.Module):
             nn.Linear(z_dim, 256),
             nn.LeakyReLU(0.01),
             nn.Linear(256, img_dim),
-            nn.Tanh(),  # normalize inputs to [-1, 1] so make outputs [-1, 1]
+            nn.Tanh(),
         )
 
     def forward(self, x):
         return self.disc(x)
+
+
+if torch.cuda.is_available():
+    device = "cuda"
+else:
+    device = "cpu"
+
+lr = 3e-4
+z_dim = 64
+image_dim = 28 * 28 * 1  # 784
+batch_size = 32
+num_epochs = 50
